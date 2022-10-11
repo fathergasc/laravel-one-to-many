@@ -28,7 +28,7 @@
 
             </select>
 
-            @error('title')
+            @error('category_id')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
         </div>

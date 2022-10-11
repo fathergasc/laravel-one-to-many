@@ -64,7 +64,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('status', 'Post created!');
     }
 
     /**
@@ -86,7 +86,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -102,6 +103,7 @@ class PostController extends Controller
             [
                 'title' => 'required|max:255',
                 'content' => 'required',
+                'category_id' => 'nullable|exists:categories,id'
             ]
         );
 
@@ -113,7 +115,7 @@ class PostController extends Controller
 
         $post->update($data);
 
-        return redirect()->route('admin.posts.edit', compact('post'))->with('status', 'Post updated!');
+        return redirect()->route('admin.posts.index', compact('post'))->with('status', 'Post updated!');
     }
 
     protected function generateSlug($title) {
