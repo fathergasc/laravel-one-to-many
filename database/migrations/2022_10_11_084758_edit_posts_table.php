@@ -17,7 +17,7 @@ class EditPostsTable extends Migration
             $table->unsignedBigInteger('category_id')->nullable()->after('slug');
 
             $table->foreign('category_id')
-                    ->reference('id')
+                    ->references('id')
                     ->on('categories')
                     ->onDelete('set null');
         });
